@@ -1,0 +1,1480 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Optimization.Solver.SulumSolver</name>
+    </assembly>
+    <members>
+        <member name="M:Optimization.Solver.Sulum.SulumSolver.#ctor(Optimization.Solver.Sulum.SulumSolverConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Object"/> class.
+            </summary>
+        </member>
+        <member name="M:Optimization.Solver.Sulum.SulumSolver.ClearLastModel">
+            <summary>
+            Deletes the internal datastructures of this solver instance.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">If this solver instance is busy.</exception>
+        </member>
+        <member name="M:Optimization.Solver.Sulum.SulumSolver.Solve(Optimization.Model,System.Collections.Generic.IDictionary{System.String,System.Double})">
+            <summary>
+            Solves the specified model.
+            </summary>
+            <param name="model">The model.</param>
+            <param name="variableValues">The variable values.</param>
+            <returns>A solution object.</returns>
+        </member>
+        <member name="M:Optimization.Solver.Sulum.SulumSolver.Abort">
+            <summary>
+            If this solver instance is busy abort the run as soon as possible, or do nothing if this solver instance is not busy.
+            </summary>
+            <exception cref="T:System.NotSupportedException">If this solver instance not supports aborting.</exception>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolver.Configuration">
+            <summary>
+            The configuration of this solver instance.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolver.IsBusy">
+            <summary>
+            Is this solver instance busy?
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:Optimization.Solver.Sulum.SulumStatusInformation">
+            <summary>
+            Allows to retrieve status information for the Sulum solver.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SimplexPrimalIteration">
+            <summary>
+            Total iterations executed in the primal simplex optimizer in last call to the optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SimplexDualIteration">
+            <summary>
+            Total iterations executed in the dual simplex optimizer in last call to the optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SimplexPrimalFeasable">
+            <summary>
+            Indicates if the solution stored is primal feasible (one) or not (zero). This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SimplexDualFeasable">
+            <summary>
+            Indicates if the solution stored is dual feasible (one) or not (zero). This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.BasicSolutionStatus">
+            <summary>
+            Solution status on the basic solution, which is updated during a call to the simplex optimizer. This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SimplexIteration">
+            <summary>
+            Total iterations executed in the simplex optimizer in last call to the optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.IsDualized">
+            <summary>
+            Returns non zero if problem is currently dualized by the optimizer.This info item is updated during the optimization process.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.IsPerturbed">
+            <summary>
+            Returns non zero if problem is currently perturbed by the optimizer. This info item is updated during the optimization process.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.IsScaled">
+            <summary>
+            Returns non zero if problem is currently scaled by the optimizer. This info item is updated during the optimization process.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.WasDualized">
+            <summary>
+            Returns non zero if problem was dualized by the optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.WasPerturbed">
+            <summary>
+            Returns non zero if problem was perturbed by the optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.WasScaled">
+            <summary>
+            Returns non zero if problem was scaled by the optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.PrimalNumberInf">
+            <summary>
+            Number of primal infeasible variables. This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.DualNumberInf">
+            <summary>
+            Number of dual infeasible variables. This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.PrimalNumberBndFail">
+            <summary>
+            Number of primal variables on a non existing bound. This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNodes">
+            <summary>
+            Number of nodes in the branch and bound tree in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNodesLeaf">
+            <summary>
+            Number of leaf nodes in branch and bound tree in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNodesSolved">
+            <summary>
+            Number of nodes processed in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNodesSolvedLP">
+            <summary>
+            Number of nodes processed in the MIP optimizer, which required a call to the LP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNodesOpt">
+            <summary>
+            Number of nodes processed in the MIP optimizer, which was determined optimal.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNodesInf">
+            <summary>
+            Number of nodes processed in the MIP optimizer, which was determined infeasible.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNodesCutOff">
+            <summary>
+            Number of nodes processed in the MIP optimizer, which was cut off by upper bound on objective.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNodesNumerical">
+            <summary>
+            Number of nodes processed in the MIP optimizer, which was determined numerical instabil.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPTreeMaximumDepth">
+            <summary>
+            Maximum depth in branch and bound tree in the MIP optimizerat any given point in time.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPTreeCurMaximumDepth">
+            <summary>
+            Maximum depth in the current branch and bound tree in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPSimplexIteration">
+            <summary>
+            Number of simplex iterations performed in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberSolution">
+            <summary>
+            Number of feasible integer solutions found in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberSolutionInPool">
+            <summary>
+            Number of feasible integer solutions found in the solution pool the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPIntegerFeasable">
+            <summary>
+            Indicates if the solution stored is integer feasible (one) or not (zero). This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.IntegerNumberInf">
+            <summary>
+            Number of integer infeasible variables..
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPIntegerBestFound">
+            <summary>
+            Indicator to tell where is the best integer solution found. If the item is 1=branching, 2=rounding, 3=strong branching, 4=start heuristics, 5=diving heuristic, 6=improving heuristic, 7=other heuristic
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPIntegerFoundHeuristic">
+            <summary>
+            Number of integer solutions found by heuristics .
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPIntegerFoundBranch">
+            <summary>
+            Number of integer solutions found by standard branching.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPIntegerFoundStrongBranch">
+            <summary>
+            Number of integer solutions found by standard strong branching.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPSolutionStatus">
+            <summary>
+            Solution status for mixed integer optimizer, which is updated during a call to the mixed integer optimizer. This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootSimplexIteration">
+            <summary>
+            Simplex iterations spend in solving the root relaxation.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootSimplexPumpIteration">
+            <summary>
+            Simplex iterations spend in improving the LP bound at the root node.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPSimplexPumpIteration">
+            <summary>
+            Simplex iterations spend in improving the LP bound.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootInitialNumberInf">
+            <summary>
+            Initial number of integer infeasible variables at the root node.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootFinalNumberInf">
+            <summary>
+            Final number of integer infeasible variables at the root node.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootNumberCuts">
+            <summary>
+            Number of cuts added at the root node.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberCuts">
+            <summary>
+            Number of cuts added.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.OptSizeConstraints">
+            <summary>
+            Number of constraints in final problem passed to the optimizer i.e after presolve.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.OptSizeVars">
+            <summary>
+            Number of variables in final problem passed to the optimizer i.e after presolve.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.OptSizeAnz">
+            <summary>
+            Number of matrix non zeroes in final problem passed to the optimizer i.e after presolve.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberStrongFixes">
+            <summary>
+            Number of variable fixes by strong branch in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberStrongNewBnd">
+            <summary>
+            Number of new variable bounds by strong branch in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberStrongTightBnd">
+            <summary>
+            Number of tighten variable found by strong branch in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberDomFixes">
+            <summary>
+            Number of variable fixes by domain propagation in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberDomNewBnd">
+            <summary>
+            Number of new variable bounds by domain propagation in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberDomTightBnd">
+            <summary>
+            Number of tighten variable found by domain propagation in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberRCFixes">
+            <summary>
+            Number of variable fixes by reduced cost fixing in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberRCNewBnd">
+            <summary>
+            Number of new variable bounds by reduced cost fixing in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberRCTightBnd">
+            <summary>
+            Number of tighten variable found by reduced cost fixing in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberRootStrongFixes">
+            <summary>
+            Number of variable fixes by strong branch at the root node in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberRootStrongNewBnd">
+            <summary>
+            Number of new variable bounds by strong branch at the root node in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberRootStrongTightBnd">
+            <summary>
+            Number of tighten variable found by strong branch at the root node in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberRootDomFixes">
+            <summary>
+            Number of variable fixes by domain propagation at the root node in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberRootDomNewBnd">
+            <summary>
+            Number of new variable bounds by domain propagation at the root node in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberRootDomTightBnd">
+            <summary>
+            Number of tighten variable found by domain propagation at the root node in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberRootRCFixes">
+            <summary>
+            Number of variable fixes by reduced cost fixing at the root node in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberRootRCNewBnd">
+            <summary>
+            Number of new variable bounds by reduced cost fixing at the root node in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberRootRCTightBnd">
+            <summary>
+            Number of tighten variable found by reduced cost fixing at the root node in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNumberStrongBranch">
+            <summary>
+            Number of strong branch calls on variables in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPCurrentNode">
+            <summary>
+            Number of the current node being processed in the mixed integer optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPHeurSimplexIteration">
+            <summary>
+            Simplex iterations spend in heuristics.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPHeurDivingSimplexIteration">
+            <summary>
+            Simplex iterations spend in diving heuristics.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPHeurSubMipping">
+            <summary>
+            Number of sub mip's solved in heuristics.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPHeurSubMippingSimplexIteration">
+            <summary>
+            Simplex iterations spend in submipping heuristics.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPHeurSubMippingNodes">
+            <summary>
+            Nodes processed d in submipping heuristics.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SizeConstraints">
+            <summary>
+            Number of constraints in initial problem passed to the optimizer i.e before presolve.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SizeVars">
+            <summary>
+            Number of variables in initial problem passed to the optimizer i.e before presolve.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SizeAnz">
+            <summary>
+            Number of matrix non zeroes in initial problem passed to the optimizer i.e before presolve.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SizeInteger">
+            <summary>
+            Number of integer (including binary) variables in initial problem passed to the optimizer i.e before presolve.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SizeBin">
+            <summary>
+            Number of binary variables in initial problem passed to the optimizer i.e before presolve.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.OptSizeInteger">
+            <summary>
+            Number of integer (including binary) variables in finall problem passed to the optimizer i.e after presolve.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.OptSizeBin">
+            <summary>
+            Number of binary variables in final problem passed to the optimizer i.e after presolve.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SimplexLexIteration">
+            <summary>
+            Number of iterations in lexicographic dual simplex cut reoptimization.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootCutImpliedBound">
+            <summary>
+            Number of implied bound cuts added in final root LP relax.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootCutKnapsackCoverCuts">
+            <summary>
+            Number of knapsack cover cuts added in final root LP relax.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootCutGomoryFractional">
+            <summary>
+            Number of gomory fractional cuts added in final root LP relax.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootCutMir">
+            <summary>
+            Number of MIR cuts added in final root LP relax.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootCutGomory">
+            <summary>
+            Number of gomory fractional cuts added in final root LP relax.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootCutFlowCover">
+            <summary>
+            Number of flow cover cuts added in final root LP relax.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootCutClique">
+            <summary>
+            Number of clique cuts added in final root LP relax.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootCutZeroHalf">
+            <summary>
+            Number of zero half cuts added in final root LP relax.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.OptTime">
+            <summary>
+            Total time used in the optimizers in the last call to the optimizer. If more than one optimizer is used in the solution proces, then time reported is a sum of these. 
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SimplexTime">
+            <summary>
+            Total time used in the simplex optimizers in the last call to the optimizer. If more than one simplex optimizer is used in the solution proces, then time reported is a sum of these. 
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SimplexPrimalTime">
+            <summary>
+            Total time time used in the primal simplex optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.SimplexDualTime">
+            <summary>
+            Total time time used in the dual simplex optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.NetTime">
+            <summary>
+            Total time used in the net simplex optimizers in the last call to the optimizer. If more than one net simplex optimizer is used in the solution proces, then time reported is a sum of these. 
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.NetPrimalTime">
+            <summary>
+            Total time time used in the primal network simplex optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.PreTime">
+            <summary>
+            Total time time used in the presolve module.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.PostTime">
+            <summary>
+            Total time time used in the postsolve module.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.PrimalObjective">
+            <summary>
+            Objective value of the current primal solution. This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.DualObjective">
+            <summary>
+            Objective value of the current dual solution. This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.DualBndInf">
+            <summary>
+            Max dual bound infeasibilities. This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.PrimalBndInf">
+            <summary>
+            Max primal bound infeasibilities. This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.DualEqInf">
+            <summary>
+            Max dual equation infeasibilities. This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.PrimalEqInf">
+            <summary>
+            Max primal equation infeasibilities. This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.PrimalMaximumSbas">
+            <summary>
+            Max primal superbasic variable in absolute terms. This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.DualMaximumSbas">
+            <summary>
+            Max dual superbasic variable in absolute terms. This item is only trust worthy after a call to the optimizer if the parameter SlmPrmIntUpdateSolQuality is switched on.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPTime">
+            <summary>
+            Time spend in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPSubMippingTime">
+            <summary>
+            Time spend solving independent MIP sub problems in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPHeuristicTime">
+            <summary>
+            Time spend performing heuristics in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPCutsTime">
+            <summary>
+            Time spend generating cuts and resolving after adding cuts in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPSelectNodeTime">
+            <summary>
+            Time spend selecting a node to process in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPBranchTime">
+            <summary>
+            Time spend choosing a branching variable in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPBoundInteger">
+            <summary>
+            Bound given by integer solution in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPBoundLP">
+            <summary>
+            Bound given by LP in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPBranchCutTime">
+            <summary>
+            Time spend in the branch and cut optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPTreeMoveTime">
+            <summary>
+            Time spend in moving between nodes in the branch and bound tree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.IntegerSumInf">
+            <summary>
+            Sum of integer infeasible variables..
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPGapAbs">
+            <summary>
+            Absolute gap between upper and lower bound.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPGapRel">
+            <summary>
+            Relative gap between upper and lower bound.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootInitialBound">
+            <summary>
+            LP bound at root after solving the initial relaxation.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootFinalBound">
+            <summary>
+            LP bound at root after solving the initial relaxation and improving the bound.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootInitialSumInf">
+            <summary>
+            Initial number of integer infeasible variables at the root node.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPRootFinalSumInf">
+            <summary>
+            Final sum of integer infeasibility at the root node.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPSelectBasisTime">
+            <summary>
+            Time spend selecting a basis in the MIP optimizer i.e main processing nodes call.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNodePresolveTime">
+            <summary>
+            Time spend doing node presolve in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNodeProbingTime">
+            <summary>
+            Time spend doing node probing in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPNodeCompressTime">
+            <summary>
+            Time spend doing node compress in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPHeuristicSubMIPTime">
+            <summary>
+            Time spend performing sub mipping heuristics in the MIP optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPLPTime">
+            <summary>
+            Time spend in the LP optimizer in the branch and cut optimizer.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumStatusInformation.MIPLPLexTime">
+            <summary>
+            Time spend in the lex optimizer in the branch and cut optimizer.
+            </summary>
+        </member>
+        <member name="T:Optimization.Solver.Sulum.SulumExpressionVisitor">
+            <summary>
+            This is a helper class to create an expression for the SulumSolver visiting all nodes of an Optimization.Model.Expression
+            </summary>
+        </member>
+        <member name="T:Optimization.Solver.Sulum.SulumSolverConfiguration">
+            <summary>
+            Allows to configure parameters for the Sulum solver.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.Optimizer">
+            <summary>
+            Controls which optimizer will be used. Take values from SlmOptimizer. The default value is SlmOptFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.Presolve">
+            <summary>
+            Controls which type of presolve strategy should be used by the presolve module. Take values from SlmPresolve. The default value is SlmPreFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.PresolveHotstart">
+            <summary>
+            Controls which type of presolve strategy should be used by the presolve module, when a hotstart is present. Take values from SlmPresolve. The default value is SlmPreFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.PresolveCompress">
+            <summary>
+            Controls if the problem should be compressed after a call to the presolve module. Take values from SlmPresolveCompress. The default value is SlmPreCompressFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.PresolveCompressHotstart">
+            <summary>
+            Controls if the problem should be compressed after a call to the presolve module were a hotstart is present. Take values from SlmPresolveCompress. The default value is SlmPreCompressFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexPrimalPricingStrategy">
+            <summary>
+            Controls which pricing strategy should be used by the primal simplex optimizer. Take values from SlmSimPrice. The default value is SlmSimPriceFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexDualPricingStrategy">
+            <summary>
+            Controls which pricing strategy should be used by the dual simplex optimizer. Take values from SlmSimPrice. The default value is SlmSimPriceFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexPrimalPricingStrategyHotstart">
+            <summary>
+            Controls which pricing strategy should be used by the primal simplex optimizer, when a hotstart is available. Take values from SlmSimPrice. The default value is SlmSimPriceFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexDualPricingStrategyHotstart">
+            <summary>
+            Controls which pricing strategy should be used by the dual simplex optimizer, when a hotstart is available. Take values from SlmSimPrice. The default value is SlmSimPriceFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.LoggingLevel">
+            <summary>
+            Controls the amount of output from Sulum in general. Please note this parameter may overrule optimizer log settings. The default value is 5. Minimum and maximum value are 0 and 10.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexLoggingLevel">
+            <summary>
+            Controls the amounts of output from the simplex optimizer. Please note this parameter may be overruled the general log settings. The default value is 5. Minimum and maximum value are 0 and 10.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexQuadPrecision">
+            <summary>
+            Controls if quad precision is used in the simplex optimizer. If switched on the simplex optimizer will start with quad precision right from the beginning. If switched off then the simplex optimizer will switch to quad precision if problem is deemed beneficial. Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexPerturbationLevel">
+            <summary>
+            Controls the level of perturbations in the simplex optimizer. The higher number the more agressive perturbation used to avoid degeneration. Zero means no perturbation used. The default value is 50. Minimum and maximum value are 0 and 100.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexShifting">
+            <summary>
+            Controls the if shifting is used in the simplex optimizer.  Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexWarmStart">
+            <summary>
+            If this key is switched off then the optimizer disregard any solution stored in the model. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexProbing">
+            <summary>
+            Some time it might be faster to solve the respective dual formulation instead of the primal. Take values from SlmSimProb. The default value is SlmSimProbFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.PrimalCrash">
+            <summary>
+            Controls if the primal simplex optimizer should crash a advanced start basis. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.DualCrash">
+            <summary>
+            Controls if the dual simplex optimizer should crash a advanced start basis. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexScale">
+            <summary>
+            Controls if the simplex optimizer should scale data to be more numerical stable. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexScaleHotstart">
+            <summary>
+            Controls if the simplex optimizer should scale data to be more numerical stable, when a hotstart is present. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.ObjectiveSense">
+            <summary>
+            Decide if the model should be maximized or minimized. Take values from SlmObjSense. The default value is SlmObjSenseMin.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.Unused">
+            <summary>
+            Unused enum will be used later. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MPSWriteNames">
+            <summary>
+            Controls if Sulum MPS writer should replace constraint and variable names with generic ones . Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.Debug">
+            <summary>
+            This option can be switch on in debug mode and development phase to find bugs easier. Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.Internal1">
+            <summary>
+            Secret ninja setting not for kids. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.Internal2">
+            <summary>
+            Secret ninja setting not for kids. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.Internal3">
+            <summary>
+            Secret ninja setting not for kids. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.LoggingPrefix">
+            <summary>
+            Skip doing prefix in logging i.e stream tags like info,debug,log etc is stripped. Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.LoggingNoModuleMessage">
+            <summary>
+            Skip writting stop and start for each optimizer module in logging. Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexMaximumIteration">
+            <summary>
+            Maximum iterations allowed in simplex optimizers. The default value is INT_MAX. Minimum and maximum value are 0 and INT_MAX.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.UpdateSolutionQuality">
+            <summary>
+            Decides if the optimizer should update information solution quality items at the end of a call to the optimizer. For performance issues this may be switched off. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexObjectiveCutNoSolution">
+            <summary>
+            Controls if a solution is needed when the optimizer stops premature due to objective cut . Often it is significantly faster for the optimizer not to provide a solution, so if it's not needed switch this option on. Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.LPWriteNames">
+            <summary>
+            Controls if Sulum LP writer should replace constraint and variable names with generic ones . Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.LPWriteNumberOnLine">
+            <summary>
+            Controls how many items Sulum LP writer should write on each line. The default value is 5. Minimum and maximum value are 1 and 20.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.LPWritePrecision">
+            <summary>
+            Controls how many items Sulum LP writer should write on each line. The default value is 4. Minimum and maximum value are 2 and 20.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.LPWriteFreeConstraints">
+            <summary>
+            Controls if Sulum LP writer should write free constraints. Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MPSWriteFreeConstraints">
+            <summary>
+            Controls if Sulum MPS writer should write free constraints. Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.LPReadFreeConstraints">
+            <summary>
+            Controls if Sulum LP reader should read free constraints. Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MPSReadFreeConstraints">
+            <summary>
+            Controls if Sulum MPS reader should read free constraints. Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.LPWriteVariableOrder">
+            <summary>
+            Controls if Sulum LP writer should write variables in same order i.e write variables with zero objective in objective section. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.NumberThreads">
+            <summary>
+            Controls the maximum number of threads used by the Sulum optimizer. The default value is 1. Minimum and maximum value are 1 and INT_MAX.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPMaximumNodes">
+            <summary>
+            Controls the maximum number of nodes processed bu the Sulum MIP optimizer. The default value is INT_MAX. Minimum and maximum value are 0 and INT_MAX.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPMaximumSolution">
+            <summary>
+            Controls the maximum number of feasible solutions found and stored in the solution pool by the Sulum MIP optimizer. The default value is 10. Minimum and maximum value are 1 and INT_MAX.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPCuts">
+            <summary>
+            Controls the overall level of cut generation used by the Sulum MIP optimizer. The given level can be overide by individual cut settings. Take values from SlmMipCuts. The default value is SlmMipCutsAuto.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPMIRCuts">
+            <summary>
+            Controls the level of cut generation in MIR cuts used by the Sulum MIP optimizer. Take values from SlmMipCuts. The default value is SlmMipCutsAuto.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPGomoryCuts">
+            <summary>
+            Controls the level of cut generation in Gomory cuts used by the Sulum MIP optimizer. Take values from SlmMipCuts. The default value is SlmMipCutsAuto.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPFlowCoverCuts">
+            <summary>
+            Controls the level of cut generation in flow cover cuts used by the Sulum MIP optimizer (Not implemented yet). Take values from SlmMipCuts. The default value is SlmMipCutsAuto.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPCliqueCuts">
+            <summary>
+            Controls the level of cut generation in clique cuts used by the Sulum MIP optimizer. Take values from SlmMipCuts. The default value is SlmMipCutsAuto.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPImpliedBoundCuts">
+            <summary>
+            Controls the level of cut generation in implied bound cuts used by the Sulum MIP optimizer. Take values from SlmMipCuts. The default value is SlmMipCutsAuto.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPZeroHalfCuts">
+            <summary>
+            Controls the level of cut generation in zero half cuts used by the Sulum MIP optimizer (Not implemented yet). Take values from SlmMipCuts. The default value is SlmMipCutsAuto.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPNodeSelect">
+            <summary>
+            Controls how nodes are selected in Sulum MIP optimizer. Take values from SlmMipNode. The default value is SlmMipNodeAuto.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPBranchSelect">
+            <summary>
+            Controls how branching variables are selected in Sulum MIP optimizer. Take values from SlmMipBranch. The default value is SlmMipBranchAuto.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPNodeChildSelect">
+            <summary>
+            Controls how node selection on child nodes are selected in Sulum MIP optimizer. Take values from SlmMipNodeChild. The default value is SlmMipNodeChildAuto.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPSolveAsLP">
+            <summary>
+            Controls Sulum Optimizer should solve a MIP as LP i.e relaxing integer constraints. Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPLocalNodePresolve">
+            <summary>
+            Controls Sulum MIP Optimizer should use node presolve at local nodes i.e nodes besides the root node. Zero means off and 10 is automatically determined. The default value is 10. Minimum and maximum value are 0 and 10.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPLocalNodeHeuristic">
+            <summary>
+            Controls Sulum MIP Optimizer should use node heuristics at local nodes i.e nodes besides the root node. Zero means off and 10 is automatically determined. Take values from SlmHeuristic. The default value is SlmHeuFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPLocalNodeHeuristicPump">
+            <summary>
+            Controls Sulum MIP Optimizer should use node pumping heuristics at local nodes i.e nodes besides the root node. Zero means off and 10 is automatically determined. Take values from SlmHeuristic. The default value is SlmHeuFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPLocalNodeCuts">
+            <summary>
+            Controls Sulum MIP Optimizer should use node cuts at local nodes i.e nodes besides the root node. Zero means off and 10 is automatically determined. The default value is 10. Minimum and maximum value are 0 and 10.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPReducedCostStrengthRoot">
+            <summary>
+            Controls if the Sulum MIP Optimizer should use reduced cost strenghtening at the root node. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPReducedCostStrengthNode">
+            <summary>
+            Controls if the Sulum MIP Optimizer should use reduced cost strenghtening at the each node. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexUseQuadInf">
+            <summary>
+            Controls if Sulum Simplex Optimizer should use switch to quad precision, when a problem is determined infeasible. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPLoggingLevel">
+            <summary>
+            Controls the amount of output from Sulum integer optimizer in general. The default value is 5. Minimum and maximum value are 0 and 10.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPNodeSelectLoggingLevel">
+            <summary>
+            Controls the amount of output from Sulum integer optimizer in the node selection module. The default value is 0. Minimum and maximum value are 0 and 10.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPBranchSelectLoggingLevel">
+            <summary>
+            Controls the amount of output from Sulum integer optimizer in the branch selection module. The default value is 0. Minimum and maximum value are 0 and 10.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPIntegerSolutionLoggingLevel">
+            <summary>
+            Controls the amount of output from Sulum integer optimizer about finding integer feasible solutions. The default value is 0. Minimum and maximum value are 0 and 10.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexSolveUnscaled">
+            <summary>
+            Controls if the simplex optimizer should reoptimize on a unscaled problem if tolerances are not met. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPFeasableFocus">
+            <summary>
+            Controls if the mixed integer optimizer should focus more on obtaining a feasible solution. Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPSubMippingLevel">
+            <summary>
+            Controls how deep the mixed integer optimizer can go on solve sub mips. The default value is 1. Minimum and maximum value are 0 and 10.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPSolutionStopNumber">
+            <summary>
+            Controls if the mixed integer optimizer should stop after a certain number of integer solutions is found. The default value is INT_MAX. Minimum and maximum value are 1 and INT_MAX.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPDoTiming">
+            <summary>
+            Controls if the mixed integer optimizer should do extra timing which can be fetched from varies information items. Could potentially slow down due to many calls to system timing routines. Take values from SlmOnOff. The default value is SlmOff.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPStallLimit">
+            <summary>
+            Controls if the mixed integer optimizer should be stopped prematurely due to no progress. The optimizer will stop, if it has processed more nodes than this parameter value with no improvement in the incumbent. The default value is INT_MAX. Minimum and maximum value are 1 and INT_MAX.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPPresolveRootProbing">
+            <summary>
+            Controls if the mixed integer optimizer should apply probing techniques in presolve. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPLocalNodeProbing">
+            <summary>
+            Controls if the mixed integer optimizer can apply probing techniques in a local node. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPRootHeuristicRens">
+            <summary>
+            Controls Sulum MIP Optimizer should use node RENS(Relaxation Enforced Neighborhood Search) rounding heuristics in the root node. Take values from SlmHeuristic. The default value is SlmHeuFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPLocalNodeHeuristicRens">
+            <summary>
+            Controls Sulum MIP Optimizer should use node RENS(Relaxation Enforced Neighborhood Search) rounding heuristics at local nodes. Take values from SlmHeuristic. The default value is SlmHeuFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPRootHeuristicRins">
+            <summary>
+            Controls Sulum MIP Optimizer should use node RENS(Relaxation Enforced Neighborhood Search) rounding heuristics in the root node. Take values from SlmHeuristic. The default value is SlmHeuFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPLocalNodeHeuristicRins">
+            <summary>
+            Controls Sulum MIP Optimizer should use node RINS(Relaxation Induced Neighborhood Search) improvement heuristics at local nodes. Take values from SlmHeuristic. The default value is SlmHeuFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPRootHeuristicSins">
+            <summary>
+            Controls Sulum MIP Optimizer should use node SINS(Sulum Induced Neighborhood Search) improvement heuristics in the root node. Take values from SlmHeuristic. The default value is SlmHeuFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPLocalNodeHeuristicSins">
+            <summary>
+            Controls Sulum MIP Optimizer should use node SINS(Sulum Induced Neighborhood Search) improvement heuristics at local nodes. Take values from SlmHeuristic. The default value is SlmHeuFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPRootHeuristicDiving">
+            <summary>
+            Controls Sulum MIP Optimizer should use node diving heuristics in the root node. Take values from SlmHeuristic. The default value is SlmHeuFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPLocalNodeHeuristicDiving">
+            <summary>
+            Controls Sulum MIP Optimizer should use node diving heuristics at local nodes. Take values from SlmHeuristic. The default value is SlmHeuFree.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPAdvancedPseudoCost">
+            <summary>
+            Controls if Sulum MIP Optimizer should use advanced techniqes in maintaining pseudo costs. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPMaximumSimplexIteration">
+            <summary>
+            Controls the maximum number of simlex iterations processed by the Sulum MIP optimizer. The default value is INT_MAX. Minimum and maximum value are 0 and INT_MAX.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.RandomSeed">
+            <summary>
+            Controls the random seed by the Sulum MIP optimizer. The default value is INT_MAX. Minimum and maximum value are 1234 and INT_MAX.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPStrongInit">
+            <summary>
+            Controls if the mixed integer optimizer should apply strong branching initialize in non strong branching rules. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPGomoryFractionalCuts">
+            <summary>
+            Controls the level of cut generation in Gomory fractional cuts used by the Sulum MIP optimizer. Take values from SlmMipCuts. The default value is SlmMipCutsAuto.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPKnapsackCoverCuts">
+            <summary>
+            Controls the level of cut generation in knapsack cover cuts used by the Sulum MIP optimizer. Take values from SlmMipCuts. The default value is SlmMipCutsAuto.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPCutsUseLexDual">
+            <summary>
+            Controls if lexicographic dual simplex is used by the Sulum MIP optimizer in cut reoptimization. Take values from SlmOnOff. The default value is SlmOn.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPCutsInLPPrRound">
+            <summary>
+            Controls the number of cuts added in each reoptimizing round used by the Sulum MIP optimizer in cut reoptimization. The default value is 20. Minimum and maximum value are 1 and INT_MAX.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexTolerancePrimal">
+            <summary>
+            Absolut tolerance used by the simplex optimizer to determine if a solution is primal feasible or not. The default value is 1.0e-6. Minimum and maximum value are 1.0e-10 and 1.0e-4.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexToleranceDual">
+            <summary>
+            Absolut tolerance used by the simplex optimizer to determine if a solution is dual feasible or not. The default value is 1.0e-6. Minimum and maximum value are 1.0e-10 and 1.0e-4.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexTolerancePivot">
+            <summary>
+            Absolut tolerance used by the simplex optimizer to control the minimum size of a pivot element. The default value is 1.0e-9. Minimum and maximum value are 1.0e-12 and 1.0e-5.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexToleranceMarko">
+            <summary>
+            Absolut tolerance used by the simplex optimizer to control the stability of pivot size in LU factorization module. The default value is 8.0e-3. Minimum and maximum value are 1.0e-4 and 9.0e-1.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexTimeLimit">
+            <summary>
+            Maximum time allowed in the simplex optimizer. The default value is +INF. Minimum and maximum value are 0 and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexObjectiveUpperCut">
+            <summary>
+            If the optimal objective value can be proved to be larger than this value, then the optimizer terminates. The default value is +INF. Minimum and maximum value are -INF and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.SimplexObjectiveLowerCut">
+            <summary>
+            If the optimal objective value can be proved to be less than this value, then the optimizer terminates. The default value is -INF. Minimum and maximum value are -INF and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.WarningLargeA">
+            <summary>
+            If a absolute value in the constraint matrix is larger than this value a warning will be displayed, but only if debug is on. The default value is 1.0e+8. Minimum and maximum value are 0.0 and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.WarningSmallA">
+            <summary>
+            If a absolute value in the constraint matrix is smaller than this value a warning will be displayed, but only if debug is on. The default value is 1.0e+8. Minimum and maximum value are 0.0 and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.WarningLargeC">
+            <summary>
+            If a absolute value in the objective is larger than this value a warning will be displayed, but only if debug is on. The default value is 1.0e+8. Minimum and maximum value are 0.0 and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.WarningLargeLower">
+            <summary>
+            If the absolute value of a lower bound is larger than this value a warning will be displayed, but only if debug is on. The default value is 1.0e+8. Minimum and maximum value are 0.0 and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.WarningLargeUpper">
+            <summary>
+            If the absolute value of a upper bound is larger than this value a warning will be displayed, but only if debug is on. The default value is 1.0e+8. Minimum and maximum value are 0.0 and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.OptTimeLimit">
+            <summary>
+            Maximum time allowed in the optimizer. The default value is +INF. Minimum and maximum value are 0 and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.OptSolveZero">
+            <summary>
+            Tolerance on what is considered zero in solves with basis call by the user. The default value is 1.0e-12. Minimum and maximum value are 0 and 1.0e-8.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPToleranceRelGap">
+            <summary>
+            Relative stopping tolerance used by the MIP optimizer. The optimizer will stop, if the relative gap between the upper and lower bound is less than the upper bound times this value. We use the relative gap measure (upper-lower)/max(eps,max(upper-lower)) The default value is 1.0e-4. Minimum and maximum value are 1.0e-16 and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPToleranceAbsGap">
+            <summary>
+            Absolute stopping tolerance used by the MIP optimizer. The optimizer will stop, if the absolute gap between the upper and lower bound is less than the upper bound times this value. The default value is 1.0e-10. Minimum and maximum value are 0.0 and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPToleranceInteger">
+            <summary>
+            Integer variable tolerance used by the MIP optimizer. The default value is 1.0e-6. Minimum and maximum value are 1.0e-9 and 1.0e-2.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPTimeLimit">
+            <summary>
+            Maximum time allowed in the mixed integer optimizer. The default value is +INF. Minimum and maximum value are 0 and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPObjectiveUpperCut">
+            <summary>
+            If the optimal objective value can be proved to be larger than this value and a feasible solution exists,, then the optimizer terminates. The default value is +INF. Minimum and maximum value are -INF and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPObjectiveLowerCut">
+            <summary>
+            If the optimal objective value can be proved to be less than this value and a feasible solution exists, then the optimizer terminates. The default value is -INF. Minimum and maximum value are -INF and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPCutOff">
+            <summary>
+            Cuttoff value to be used to prune nodes in the mixed integer optimizer. INF means unset and will be ignored.  The default value is +INF. Minimum and maximum value are -INF and +INF.
+            </summary>
+        </member>
+        <member name="P:Optimization.Solver.Sulum.SulumSolverConfiguration.MIPCutMaximumAdd">
+            <summary>
+            Maximum fraction of cuts added compared to number of constraints in the mixed integer optimizer. The default value is 0.5. Minimum and maximum value are 0.0 and 10.0.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmOptimizer.SlmOptFree">
+            <summary>
+            The optimizer decides which optimizer to call based on the model structure.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmOptimizer.SlmOptPrimal">
+            <summary>
+            The primal simplex optimizer should be applied.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmOptimizer.SlmOptDual">
+            <summary>
+            The dual simplex optimizer should be applied.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmPresolve.SlmPreOff">
+            <summary>
+            Do not apply any presolve strategies.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmPresolve.SlmPreFree">
+            <summary>
+            The optimizer automatically decides if presolve and which type of presolve should be applied.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmPresolve.SlmPreEasy">
+            <summary>
+            Presolve will only use very simple methods to reduce problem size.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmPresolve.SlmPrePrimal">
+            <summary>
+            The presolve will only use strategies based on primal information.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmPresolve.SlmPreDual">
+            <summary>
+            The presolve will only use strategies based on dual information.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmPresolve.SlmPreFull">
+            <summary>
+            Presolve will reduce problem size using all methods.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmPresolveCompress.SlmPreCompressFree">
+            <summary>
+            The presolve automatically decides if final problem should be compressed.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmPresolveCompress.SlmPreCompressOn">
+            <summary>
+            Presolve usewill use compression.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmPresolveCompress.SlmPreCompressOff">
+            <summary>
+            Do not apply any presolve compression.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmSimPrice.Free">
+            <summary>
+            The simplex optimizer analyzes the model and decides the best choice in the given situation.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmSimPrice.Steep">
+            <summary>
+            The simplex optimizer will use steepest edge strategy, which is the most expensive pricing strategy, but also often the one with fewest iterations. The strategy is based on calculation of vector norms.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmSimPrice.AppSteep">
+            <summary>
+            The simplex optimizer will use approximate steepest edge strategy, which relaxes the steepeste edge strategy by using only appriximate norms.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmSimPrice.Partial">
+            <summary>
+            The simplex optimizer will scan only a subset of candidates and choose between promising candidates by a very cheap scheme.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmSimProb.Free">
+            <summary>
+            The optimizer decides if the primal or dual formulation should be solved.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmSimProb.Primal">
+            <summary>
+            The primal formulation should be solved.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmSimProb.Dual">
+            <summary>
+            The dual formulation should be solved.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmObjSense.Minimum">
+            <summary>
+            The problem is of type minimization.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmObjSense.Maximum">
+            <summary>
+            The problem is of type maximization.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmObjSense.Ignore">
+            <summary>
+            Optimizer is terminated when a primal feasible solution is found or proven infeasible.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipCuts.Off">
+            <summary>
+            The given option is off i.e do no cut generation.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipCuts.Minimum">
+            <summary>
+            Do a minimum of work in cut generation.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipCuts.Medium">
+            <summary>
+            Do a fair amount of work in cut generation.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipCuts.Agressive">
+            <summary>
+            Be agressive in cut generation.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipCuts.Auto">
+            <summary>
+            The given option is automatically determined by the optimizer.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipNode.Auto">
+            <summary>
+            The given option is automatically determined by the optimizer.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipNode.BestFirst">
+            <summary>
+            Choose best bound first.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipNode.DepthFirst">
+            <summary>
+            Choose lowest depth first.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipNode.PseudoCost">
+            <summary>
+            Choose by pseudo costs.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipNode.Hybrid">
+            <summary>
+            Choose from a hybrid estimate.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipNode.Adaptive">
+            <summary>
+            Choose from a adaptive node search aim to balance the tree exploration.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipBranch.Auto">
+            <summary>
+            The given option is automatically determined by the optimizer.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipBranch.MinimumInfeasible">
+            <summary>
+            Choose based on minimum infeasibility.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipBranch.MaximumInfeasible">
+            <summary>
+            Choose based on maximum infeasibility.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipBranch.StrongBranching">
+            <summary>
+            Choose based on strong branching.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipBranch.PseudoCost">
+            <summary>
+            Choose based on pseudo costs.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipBranch.PseudoHybrid">
+            <summary>
+            Choose based on a hybrid pseudo price selection scheme.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipNodeChild.Auto">
+            <summary>
+            The given option is automatically determined by the optimizer.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipNodeChild.Upper">
+            <summary>
+            Choose up branch.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipNodeChild.Lower">
+            <summary>
+            Choose lo branch.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmMipNodeChild.Guided">
+            <summary>
+            Choose bracnh guided by incumbent.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmHeuristic.SlmHeuOff">
+            <summary>
+            Do not apply heuristic method.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmHeuristic.SlmHeuFree">
+            <summary>
+            The optimizer automatically decides if the heuristic method should be applied.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmHeuristic.SlmHeuLight">
+            <summary>
+            Heuristic will be used in a lightweight version.
+            </summary>
+        </member>
+        <member name="F:Optimization.Solver.Sulum.SlmHeuristic.SlmHeuFull">
+            <summary>
+            Heuristic will be used as much as deemed possible.
+            </summary>
+        </member>
+    </members>
+</doc>
